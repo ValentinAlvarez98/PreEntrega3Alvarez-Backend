@@ -47,7 +47,7 @@ export class CartsMongoDAO {
 
     }
 
-    async deleteOne(payload) {
+    async deleteProduct(payload) {
 
         return await cartsModel.findOneAndDelete({
             code: payload.code

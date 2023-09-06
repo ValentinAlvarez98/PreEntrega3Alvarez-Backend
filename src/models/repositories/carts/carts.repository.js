@@ -64,11 +64,11 @@ export class CartsRepository {
 
     };
 
-    async deleteOne(payload) {
+    async deleteProduct(payload) {
 
         const payloadToDelete = new DeleteProductDTO(payload);
 
-        return await this.dao.deleteOne(payloadToDelete);
+        return await this.dao.deleteProduct(payloadToDelete);
 
     };
 

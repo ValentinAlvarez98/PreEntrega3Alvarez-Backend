@@ -52,7 +52,7 @@ export class CartsController {
 
         try {
 
-            const user = req.body.user;
+            const user = req.body.userId;
             const result = await cartsRepository.saveOne(user);
             res.send(successResponse(result));
 
