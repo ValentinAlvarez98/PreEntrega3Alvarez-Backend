@@ -1,6 +1,6 @@
 {{!-- Se crea una vista de perfil --}}
 <button type="submit" class="col-6 btn btn-primary rounded-0 ">
-      <a href="/" class="text-decoration-none text-reset">PRODUCTOS</a>
+      <a href="/products" class="text-decoration-none text-reset">PRODUCTOS</a>
 </button>
 <div class="row justify-content-center pe-1 ps-1">
       <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 border mt-5 mb-5 pt-5 pb-5" id="login">
@@ -21,19 +21,19 @@
                                     <div class="mb-4 row">
                                           <div class="col-6">
                                                 <input type="text" class="form-control form-control-lg rounded-0"
-                                                      id="nombreMiCuenta" placeholder="{{userName}} (*)" maxlength="60"
+                                                      id="name" placeholder="{{userName}} (*)" maxlength="60"
                                                       name="first_name" required>
                                                 <p class="hidden" id="nombreRequerido">Por favor, ingrese su nombre.</p>
                                           </div>
                                           <div class="col-6">
                                                 <input type="text" class="form-control form-control-lg rounded-0"
-                                                      id="apellidoMiCuenta" placeholder="{{userLastName}} (*)" maxlength="60"
+                                                      id="lastName" placeholder="{{userLastName}} (*)" maxlength="60"
                                                       name="last_name" required>
                                           </div>
                                     </div>
                                     <div class="row">
                                           <div class="col-6">
-                                                <input type="email" class="form-control form-control-lg rounded-0"
+                                                <input type="email" class="form-control form-control-lg rounded-0" id="email"
                                                        placeholder="{{userEmail}} (*)" maxlength="60"
                                                       name="email" required>
                                                       {{#if invalidEmail}}
@@ -43,14 +43,13 @@
                                           </div>
                                           <div class="col-6">
                                                 <input type="number" class="form-control form-control-lg rounded-0"
-                                                      id="ciMiCuenta" placeholder="{{userPhone}}" maxlength="60"
+                                                      id="phone" placeholder="{{userPhone}}" maxlength="60"
                                                       name="phone">
-                                                      <p class="aclaraciones mt-3">Si quiere eliminar el teléfono, coloque un 0</p>
                                           </div>
                                     </div>
                                     <div class="row">
                                           <div class="col-6">
-                                                <input type="password" class="form-control form-control-lg rounded-0"
+                                                <input type="password" class="form-control form-control-lg rounded-0" 
                                                        placeholder="{{userName}} (*)" maxlength="60"
                                                       name="password" required>
                                                 <p class="hidden" id="nombreRequerido">Por favor, ingrese su nombre.</p>
@@ -86,9 +85,8 @@
                                     <div class="row">
                                           <div class="col-12">
                                                 <input type="email" class="form-control form-control-lg rounded-0"
-                                                       placeholder="{{userName}} (*)" maxlength="60"
+                                                       placeholder="{{userName}} (*)" maxlength="60";
                                                       name="email" required>
-                                                <p class="hidden" id="nombreRequerido">Por favor, ingrese su nombre.</p>
                                           </div>
                                           
                                           

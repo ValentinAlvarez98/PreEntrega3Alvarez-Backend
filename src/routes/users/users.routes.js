@@ -16,7 +16,7 @@ usersRouter.get('/githubcallback', passport.authenticate('github', {
       failureRedirect: '/login'
 }), UsersController.loginGithubCallback);
 usersRouter.post('/login', UsersController.loginOne);
-usersRouter.post('/admin', UsersController.loginAdmin);
+usersRouter.post('/login/admin', UsersController.loginAdmin);
 usersRouter.post('/register', UsersController.addOne);
 usersRouter.put('/update/:email', UsersController.updateOne);
 usersRouter.post('/delete', UsersController.deleteOne);

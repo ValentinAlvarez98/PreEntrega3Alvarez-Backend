@@ -6,6 +6,12 @@ import {
       getRepositories
 } from '../../models/repositories/index.repository.js';
 
+import {
+      generateJWT
+} from '../../utils/JWT/jwt.utils.js';
+
+import CONFIG from '../../config/environment/config.js';
+
 const {
       usersRepository
 } = getRepositories();
@@ -20,15 +26,22 @@ export class UsersController {
 
                   const user = await usersRepository.loginOne(payload);
 
+                  if (!user && payload.email) throw new Error(`El usuario ${payload.email ? payload.email : payload.id}, no existe`);
+
                   const response = successResponse(user);
-
-                  if (!response.payload) throw new Error(`El usuario ${payload.email ? payload.email : payload.id}, no existe`);
-
                   if (response.payload.password) response.payload.password = undefined;
+
+                  const token = generateJWT(response.payload);
+
+                  res.cookie('auth', token, {
+                        httpOnly: true,
+                        maxAge: 60 * 60 * 1000,
+                  });
 
                   res.status(200).json({
                         message: `Usuario ${payload.email ? payload.email : payload.id}, encontrado correctamente`,
-                        response
+                        response,
+                        token: token
                   });
 
             } catch (error) {
@@ -154,9 +167,17 @@ export class UsersController {
 
                   if (response.payload.password) response.payload.password = undefined;
 
+                  const token = generateJWT(response.payload);
+
+                  res.cookie('auth', token, {
+                        httpOnly: true,
+                        maxAge: 60 * 60 * 1000,
+                  });
+
                   res.status(200).json({
                         message: `Usuario ${payload.email ? payload.email : payload.id}, encontrado correctamente`,
-                        response
+                        response,
+                        token: token
                   });
 
             } catch (error) {

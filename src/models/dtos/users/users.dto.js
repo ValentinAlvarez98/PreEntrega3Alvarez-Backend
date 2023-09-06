@@ -53,7 +53,13 @@ export class LoadUserDTO {
 
             };
 
-            this.user = user;
+            this.email = user.email;
+            this.id = user._id;
+            this.age = user.age;
+            this.first_name = user.first_name;
+            this.last_name = user.last_name;
+            this.phone = user.phone;
+            this.role = user.role;
             errors.length > 0 ? this.errors = errors : null;
 
       };
@@ -108,10 +114,10 @@ export class UpdateUserDTO {
             if (updatedPayload.password) updatedPayload.password = createHash(updatedPayload.password);
 
             for (const key in updatedPayload) {
-                        
-                        if (updatedPayload[key]) payloadToUpdate[key] = updatedPayload[key];
-      
-                  };
+
+                  if (updatedPayload[key]) payloadToUpdate[key] = updatedPayload[key];
+
+            };
 
             if (payloadToUpdate.password && payloadToUpdate.password.length < 8) errors.push("La contraseña debe tener al menos 8 caracteres");
 
@@ -123,7 +129,7 @@ export class UpdateUserDTO {
             this.role = payloadToUpdate.role;
             this.phone = payloadToUpdate.phone;
             errors.length > 0 ? this.errors = errors : null;
-            
+
       }
 
 }
@@ -148,7 +154,7 @@ export class DeleteUserDTO {
 
 export class LoadAdminDTO {
 
-      constructor(payload,admin) {
+      constructor(payload, admin) {
 
             const errors = [];
 
@@ -171,7 +177,6 @@ export class LoadAdminDTO {
             };
 
             this.email = admin.email;
-            this.password = admin.password;
             this.role = admin.role;
             this.first_name = admin.first_name;
             this.last_name = admin.last_name;
@@ -180,6 +185,3 @@ export class LoadAdminDTO {
       };
 
 };
-
-
-

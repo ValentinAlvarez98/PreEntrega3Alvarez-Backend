@@ -8,41 +8,74 @@ form.addEventListener('submit', (e) => {
 
       const obj = {}
 
-      const token = localStorage.getItem('token');
-
       data.forEach((value, key) => {
             obj[key] = ['email'].includes(key) ? value.toLowerCase() : value;
       });
 
-      fetch('/api/users/login', {
+      if (obj.email !== 'admincoder@coder.com') {
 
-            method: 'POST',
-            body: JSON.stringify(obj),
-            headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${token}`,
-            }
+            fetch('/api/users/login', {
+                  method: 'POST',
+                  body: JSON.stringify(obj),
+                  headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('auth')} `
+                  }
 
-      }).then(response => {
+            }).then(response => {
 
-            if (response.status === 200) {
+                  if (response.status === 200) {
 
-                  response.json().then(data => {
+                        response.json().then(data => {
 
-                        localStorage.setItem('token', data.token);
+                              localStorage.setItem('auth', data.token);
 
-                        alert('Bienvenido');
+                              alert('Bienvenido');
 
-                        window.location.href = '/profile';
+                              window.location.href = '/profile';
 
-                  });
+                        });
 
-            } else {
+                  } else {
 
-                  console.log(response);
+                        console.log(response);
 
-            }
+                  }
 
-      });
+            });
+
+      } else {
+
+            fetch('/api/users/login/admin', {
+                  method: 'POST',
+                  body: JSON.stringify(obj),
+                  headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('auth')} `
+                  }
+
+            }).then(response => {
+
+                  if (response.status === 200) {
+
+                        response.json().then(data => {
+
+                              localStorage.setItem('auth', data.token);
+
+                              alert('Bienvenido');
+
+                              window.location.href = '/profile';
+
+                        });
+
+                  } else {
+
+                        console.log(response);
+
+                  }
+
+            });
+      }
+
 
 });

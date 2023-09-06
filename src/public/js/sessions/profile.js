@@ -12,31 +12,32 @@ form.addEventListener('submit', (e) => {
             obj[key] = ['email', 'first_name', 'last_name'].includes(key) ? value.toLowerCase() : value;
       });
 
-      if(obj.email){ 
-      
-      fetch(`/api/users/update/${obj.email}`, {
+      if (obj.email) {
 
-            method: 'PUT',
-            body: JSON.stringify(obj),
-            headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
+            fetch(`/api/users/update/${obj.email}`, {
 
-      }).then(result => {
+                  method: 'PUT',
+                  body: JSON.stringify(obj),
+                  headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('auth')}`
+                  }
 
-            if (result.status === 200) {
+            }).then(result => {
 
-                  alert('Perfil actualizado correctamente');
-                  window.location.href = '/profile';
+                  if (result.status === 200) {
 
-            } else {
+                        alert('Perfil actualizado correctamente');
+                        window.location.href = '/profile';
 
-                  alert('Error al actualizar el perfil');
+                  } else {
 
-            };
+                        alert('Error al actualizar el perfil');
 
-      })}else{
+                  };
+
+            })
+      } else {
 
             alert('El email no puede estar vacío');
 
@@ -64,7 +65,7 @@ deleteForm.addEventListener('submit', (e) => {
             body: JSON.stringify(obj),
             headers: {
                   'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${localStorage.getItem('token')} `
+                  'Authorization': `Bearer ${localStorage.getItem('auth')} `
             }
 
       }).then(response => {
@@ -73,7 +74,7 @@ deleteForm.addEventListener('submit', (e) => {
 
                   response.json().then(data => {
 
-                        localStorage.removeItem('token');
+                        localStorage.removeItem('auth');
 
                         setTimeout(() => {
                               window.location.replace('/login');
@@ -91,35 +92,3 @@ deleteForm.addEventListener('submit', (e) => {
       });
 
 });
-
-window.onload = function () {
-
-      if (!localStorage.getItem('token')) {
-
-            fetch('/api/sessions/githubToken', {
-
-                  method: 'GET',
-                  headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                  }
-
-            }).then(response => {
-
-                  if (response.status === 200) {
-
-                        response.json().then(data => {
-                              localStorage.setItem('token', data.token);
-                        });
-
-                  } else {
-
-                        throw new Error('Error al obtener el token');
-
-                  };
-
-            });
-
-      }
-
-};
